@@ -70,7 +70,7 @@ Must implement:
 ### 1. `transfer`
 **Request**
 
-TL-B schema of inbound message:
+TL-B scheme of inbound message:
 
 `transfer#5fcc3d14 query_id:uint64 new_owner:MsgAddress response_destination:MsgAddress custom_payload:(Maybe ^Cell) forward_amount:(VarUInteger 16) forward_payload:(Either Cell ^Cell) = InternalMsgBody;`
 
@@ -98,13 +98,13 @@ TL-B schema of inbound message:
 
 1. change current owner of NFT to `new_owner` address.
 2. if `forward_amount > 0` send message to `new_owner` address with `forward_amount` nanotons attached and with the following layout:
-   TL-B schema: `ownership_assigned#05138d91 query_id:uint64 prev_owner:MsgAddress forward_payload:(Either Cell ^Cell) = InternalMsgBody;`
+   TL-B scheme: `ownership_assigned#05138d91 query_id:uint64 prev_owner:MsgAddress forward_payload:(Either Cell ^Cell) = InternalMsgBody;`
    `query_id` should be equal with request's `query_id`.
    `forward_payload` should be equal with request's `forward_payload`.
    `prev_owner` is address of the previous owner of this NFT item.
    If `forward_amount` is equal to zero, notification message should not be sent.
 3. Send all excesses of incoming message coins to `response_destination` with the following layout:
-   TL-B schema: `excesses#d53276db query_id:uint64 = InternalMsgBody;`
+   TL-B scheme: `excesses#d53276db query_id:uint64 = InternalMsgBody;`
    `query_id` should be equal with request's `query_id`.
 
 ### `forward_payload` format
@@ -124,7 +124,7 @@ These rules are the same with the payload format when simply sending Toncoins fr
 ### 2 `get_static_data`
 **Request**
 
-TL-B schema of inbound message:
+TL-B scheme of inbound message:
 
 `get_static_data#2fcb26a2 query_id:uint64 = InternalMsgBody;`
 
@@ -133,7 +133,7 @@ TL-B schema of inbound message:
 **should do:**
 
 1. Send back message with the following layout and send-mode `64` (return msg amount except gas fees):
-   TL-B schema: `report_static_data#8b771735 query_id:uint64 index:uint256 collection:MsgAddress = InternalMsgBody;`
+   TL-B scheme: `report_static_data#8b771735 query_id:uint64 index:uint256 collection:MsgAddress = InternalMsgBody;`
    `query_id` should be equal with request's `query_id`.
    `index` - numerical index of this NFT in the collection, usually serial number of deployment.
    `collection` - address of the smart contract of the collection to which this NFT belongs.
@@ -232,7 +232,7 @@ The functionality of the basic NFT standard can be extended:
 * [NFTEditable (Draft)](https://github.com/ton-blockchain/TIPs/issues/68)
 * [NFTUpgradable (Draft)](https://github.com/ton-blockchain/TIPs/issues/69)
 
-# TL-B schema
+# TL-B scheme
 ```
 nothing$0 {X:Type} = Maybe X;
 just$1 {X:Type} value:X = Maybe X;
